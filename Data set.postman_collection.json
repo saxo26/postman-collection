@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "b721e759-360c-4f2b-b6e1-bd5d7f9eb121",
+		"name": "Data set",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8388860"
+	},
+	"item": [
+		{
+			"name": "http://requestbin.fullcontact.com/1hbgw6h1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var companies = pm.environment.get(\"companies\")",
+							"",
+							"if(!companies){",
+							"companies = [\"Google\",\"Yahoo\",\"Faceboooooook\",\"Amazon\"];  ",
+							"}",
+							"",
+							"",
+							"var currentCompany = companies.shift();",
+							"pm.environment.set(\"company\",currentCompany);",
+							"pm.environment.set(\"companies\",companies);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var companies = pm.environment.get(\"companies\")",
+							"if(companies && companies.length > 0){",
+							"  postman.setNextRequest(\"http://requestbin.fullcontact.com/1hbgw6h1\");  ",
+							"}else{",
+							"    postman.setNextRequest(null);",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"uuid": "e2f617f2-c209-41e3-8897-fe92703a1e33"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\":\"{{company}}\"\n}"
+				},
+				"url": {
+					"raw": "http://requestbin.fullcontact.com/1hbgw6h1",
+					"protocol": "http",
+					"host": [
+						"requestbin",
+						"fullcontact",
+						"com"
+					],
+					"path": [
+						"1hbgw6h1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
